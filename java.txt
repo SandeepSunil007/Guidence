@@ -1,0 +1,256 @@
+  
+            Abstraction
+
+  *  Abstraction is one of the OOps Principle
+  *  using abstract keyword, we can create a abstract methods.
+  *  abstract methods always present inside abstract class
+  *  can't create any object for abstract class
+  *  using extends keyword , we can get the abstact method overriding
+  *  once you extends the abstract class, you should impl the method maditory. 
+  *  Abstract methods doesn't have any body implementation, Only Decaration
+  *  we can create abstact class without abstract methods, but we can't create anstract 
+     method without abstract class.
+
+  *** Can we create object for abstract class?
+
+    No, we can't create an object of an abstract class. But we can create a reference variable of an abstract class. 
+    The reference variable is used to refer to the objects of derived classes (subclasses of abstract class)
+
+
+          Encapsulation
+
+      In java , Encapsulation is a mechanism of bindding / wrapping data(Variables)
+     and code acting on the data(Methods) togather as a single unit. 
+  
+  Achieve : * Declare variables as private
+            * provide setters and getters for that variables  
+
+
+                  PolyMorphism
+  Types :
+          1. CompileTime polymorphism
+             --> another name static polymorphism
+             --> Using method overloading we can achieve 
+             --> complier Handle
+          2. RunTime Polymorphism
+             --> Dynamic Polymorphism
+             --> Using method Overriding we can achieve
+             --> Jvm Handle
+
+      Overloading                           Overriding(Inheritence IS-A)
+ 
+   * same name                             * same name
+   * same class                            * Diff class
+   * diff arguments                        * same arguments     
+
+   ** we can't change the return type of the method, if we cahnge we can't 
+      achieve overloading
+   ** we can overload the main() method with different arguments
+  
+ Automatic Promotion : 
+       byte --> short --> int -->long / float/ double (based on requirment) ,long --> (float, double), float --> double
+                           ^
+                           |
+                          char
+   ** preference is first subclasses, if not present the subclass, automatically
+      converted into parent class.
+
+   t.show("abc") ---> calling String Argument method
+   t.show(new StringBuffer("xyz"))  -->  calling String buffer argument method
+   t.show(null) ---> ambigious problem. because, default value is null for both
+
+class Test
+    void show(int a, float b){}
+    void show(float a , int b){}
+    Test t = new Test();
+         t.show(10,20); --- Ambigious Problem
+         t.show(10,20.06f); -- right
+         t.show(10.89f,20); -- right
+
+
+   overriding:
+ 
+   in overriding no need to write main class, we should write inside subclass
+  
+    * 1.4 return type should be same
+    * After 1.4 we can we without same return type, But, parent and child
+      relation should be available 
+    * access modifier must be same, If not access modifier should be high priority
+      comape to parent class method.
+    * if we want to use throws exception, the exception should be same from both methods from both classes
+      and child class method exception is not required.
+    * always parent class method exception should be high.
+    * we can use abstract method and interface
+    * using child class object we can call the super class methods by using super()
+
+    * final methods , static methods and private methods can't override
+
+                     Interface
+
+  * only abstract methods present by deafult public, no concreat methods
+  * fields are by default public static final
+  * from 8th version , default concreate methods available and static methods
+  * from 9th version , we can create private methods
+
+  * we can create a default methods without abstract keyword 
+
+  * while impl the interface methods, we should provide the 'public' in child class
+  * we can't create any object for interface
+
+
+  1. Functional Interface : 
+     ----> It can have any number of static and default methods and also even public methods of java.lang.Object classes
+     ----> Only one abstract method is present
+ 
+  Examples of Functional Interfaces:
+               Runnable : It contains only  run()  method 
+               ActionListener : It contains only  actionPerformed()
+               ItemListener : It contains only  itemStateChanged() method
+
+
+     2. Marker Interface:
+         ---> An interface that does not contain any methods, fields, Abstract Methods, and any Constants is Called a Marker interface.
+         ---> Also, if an interface is empty, then it is known as Marker Interface.
+         ---> The Serializable and the Cloneable interfaces are examples of Marker interfaces.
+
+
+                              SET INTERFACE
+
+  1. HashSet(1.2V)
+
+  * set Interface doesn't contain any new methods. so we have to use only collection interface methods
+  
+  * internal data Structure is HashTable
+  * Duplicates not allowed
+  * no insertion order(has code objects)
+  * null insertion is possible only once
+  * HashSet impl Serilizable and clonable 
+  * HashSet is best choice for search operation
+
+  Constructors :
+     * default capacity 16 and fill Ratio(load factor) is 0.75
+   * HashSet hashset =  new HashSet();
+   * HashSet hashset =  new HashSet(int initialCapacity);
+   * HashSet hashset =  new HashSet(int initialCapacity, float loadFactor);
+   * HashSet hashset =  new HashSet(collection c);
+
+   2. LinkedHashSet(child class of HashSet) 1.4V
+ 
+    
+   --> underline data Structure Hashtable + LinkedList
+   --> insertion order available
+ 
+    3. SortedSet
+
+   Methods :  1. Object first 
+              2. Object last 
+              3. SortedSet headSet(<)
+              4. SortedSet tailSet(>) 
+              5. SortedSet subSet(1, 8)
+              6. Comparator comparator
+
+        
+                      TreeSet
+
+    * underline data Structure is Balanced tree
+    * DUplicates are not allowed
+    * insertion order not applicable
+    * sorting order applicable
+    * Hytrogeneous objects are not allowed
+    * null can't accept
+
+
+  Constructors
+  
+  1. TreeSet t = new TreeSet();
+  2. TreeSet t = new TreeSet(Comparator c);
+  3. TreeSet t = new TreeSet(SortedSet c);
+  4. TreeSet t = new TreeSet(Collection c);
+
+
+
+
+               StringBuffer(1.0V) VS StringBuilder (1.5V)
+
+  * performance wise not recomended to use String Buffer
+  * Thread safty is available
+  * methods are synchronized
+
+               String VS StringBuffer
+
+  * SB have a 3 constructors
+  * its creates empty SB constructor with default size 16
+  * 
+          Constructor	                   Description
+
+         StringBuffer()	        It creates an empty String buffer with the                                     initial capacity of 16.
+        StringBuffer(String str)   It creates a String buffer with the                                           specified string..
+       StringBuffer(int capacity)	It creates an empty String buffer                                       with the specified capacity as length.
+
+   * SB can increase the size (oldcapacity*2)+2
+
+
+
+  * we can't create any default values for local Variables
+  * we can't inherite the constructor
+  * we can't make constructor is final
+  * we can overload the constuctor
+  * default constructor is used to provide the default values for the     variables.
+
+
+
+
+charAt() - used to get the particular index value
+compareTo() - caseSensitive
+equals() - content match
+valueOf() = convert to the another datatype values into string
+
+substring() - we can give 1 parameter or 2 parameters, (1,4) - 4th index is               not consider
+startsWith() - retun type is boolean and case sensitive
+
+String joinString1=String.join("-","welcome","to","javatpoint");  -- with                out + we can attach the data using join method.
+
+getByte() - used to get the letters uniCode values
+
+intern() - if we want to add heap object inside the SCP with forcefully,             this method is uesfull.
+
+
+  Internal work of HAshMap
+
+if we create a hashMap with default size, it will create 16 buggets from 0th index(0 - 15)
+ * these buggets following the linkedList DS .
+ * in LL data storing is With Nodes.
+ * Nodes have 4 contailning places
+     1. key  2. value  3. hash  4. next
+
+if we try to add any value, inside the put() one hash() is present.
+ hash() will provide the index. based on that index data will go and sat.
+
+ * if both indexes is same for two map values, that time .equals() method    compare the data content . if not same it will provide space for second    one. if same only one data present and sharing the value
+
+what is difference b/w remove() and clean()
+
+
+
+   ***************  This ************** 
+ - used to refer the current object variables and method. 
+ - we can't use "this" keyword in static methods
+
+ **************** 7 Types Of Classes *****************
+
+1. STATIC CLASSES : this class should be inside an   another class with static keyword. we can't make  static class as a parent class
+
+2. FINAL CLASSES : Using final keyword we can make a class is final class. we can't inherite this class and final methods() won't override and variables won't change.
+
+3. ABSTRACT CLASSES : Using abstract keyword we can make class as a abstract class. we can't create an object for this class. without implementation methods present inside this class.
+
+4. CONCREATE CLASSES : a class doesn't hava a keyword those classes are concreate classes and inside all implementaion methods should be present.
+
+5. SINGLETON CLASSES : we can create only one object. this type of classes are singleton classes and the rules are constractor should be private, The instance is stored as a private static variable. and static method retur the instance.
+
+6. POJO CLASSES : This classes doesn't have any keywords to make as a POJO class. inside class, class members are should be private only and should be getters annd setters
+
+7. INNER CLASSES : a class inside another non_static class is called inner class. all inner classes are part of nested class
+
+
+must : java,spring boot, microservices, data structures, algorithms, collections.

@@ -1,0 +1,36 @@
+
+   *************** AWS ***************
+ WHAT ?
+
+ --> Amazon web service. It's a cloudInfraStructure.       we can host our application.
+ --> In 2006, AWS started to offer IT services to      the market in the form of "web services".
+     now a days known as "Cloud Computing".
+ --> Storing the data & accessing the data from 
+     internet. It doesn't store any data in HardDisk      in our personal laptop.
+ --> we can access the data from remote server.
+
+ WHY ?
+
+ --> If i want to host my application. I need to buy      the server and along with database also need to      configuration(infrastructure setup).
+  2 senarios :
+     1. may be users stopping to use our application
+        but, we should pay the for the hosting.
+     2. may be users are incresing to use, at that         time need to buy new or increase the memory         size.
+
+   To avoid this problem :
+
+  AWS offer you to create a virtual machine. inside   that add a server , database and related things.
+  we can specifies the instances and memory.
+  Rest of the configuration take care of AWS.
+
+ 
+ * In AWS, The virtual machine called 'EC2' instance
+   EC2 : Elastic Compute Cloud.
+
+
+ 
+
+  
+
+
+    

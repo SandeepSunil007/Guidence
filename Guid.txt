@@ -1,0 +1,100 @@
+
+1. while doing many-to-many uni-directional relationship we can perform all operations from parent entity.But, we can not perform    add, delete, update and get data from child entity. we should create our own "findBy_"and get the data
+
+
+
+
+
+
+
+
+Netflix : https://dev.to/gbengelebs/netflix-system-design-backend-architecture-10i3
+
+
+
+Title: Introduction to Spring Framework
+
+I. Overview
+A. Definition and Purpose
+B. Key Features
+C. Advantages and Benefits
+
+II. Core Concepts
+A. Dependency Injection (DI)
+B. Inversion of Control (IoC)
+C. Aspect-Oriented Programming (AOP)
+
+III. Modules and Components
+A. Spring Core
+B. Spring MVC
+C. Spring Data
+D. Spring Security
+E. Spring Boot
+
+IV. Spring Core
+A. Bean Configuration
+B. ApplicationContext
+C. Bean Scopes
+D. Annotations and Stereotypes
+E. Dependency Injection
+F. AOP Support
+
+V. Spring MVC
+A. Model-View-Controller (MVC) Pattern
+B. DispatcherServlet
+C. Controllers and Request Mapping
+D. Views and View Resolution
+E. Form Handling
+F. Validation
+G. Interceptors
+
+VI. Spring Data
+A. Data Access Objects (DAO)
+B. Repository Pattern
+C. Spring Data JPA
+D. Spring Data JDBC
+E. QueryDSL and Specifications
+F. Caching
+
+VII. Spring Security
+A. Authentication and Authorization
+B. UserDetailsService and UserDetails
+C. Security Configurations
+D. Password Encoding and Hashing
+E. CSRF Protection
+F. Role-Based Access Control
+
+VIII. Spring Boot
+A. Introduction and Features
+B. Autoconfiguration
+C. Embedded Servers
+D. Spring Boot Starters
+E. Actuator
+
+IX. Integration and Testing
+A. Database Integration
+B. RESTful Web Services
+C. Messaging with JMS
+D. Testing with JUnit and Mockito
+E. Integration Testing with SpringBootTest
+
+X. Best Practices and Tips
+A. Proper Bean Configuration
+B. Avoiding Common Pitfalls
+C. Effective Exception Handling
+D. Logging and Debugging
+E. Performance Optimization
+
+XI. Case Studies and Examples
+A. Building a Simple Spring Application
+B. RESTful API Development
+C. Full-Stack Web Application
+D. Microservices Architecture
+
+XII. Resources and Further Reading
+A. Official Spring Documentation
+B. Online Tutorials and Courses
+C. Community Forums and Blogs
+D. Books on Spring Framework
+
+Note: This comprehensive set of notes provides an overview of the Spring Framework and its key components. It serves as a starting point for understanding and learning about Spring. For in-depth details and implementation specifics, referring to the official Spring documentation and additional resources is highly recommended.

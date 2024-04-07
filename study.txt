@@ -1,0 +1,5 @@
+ 1. java 8
+ 2. mapping
+ 3. validation
+ 4. slf4j
+ 5. https://www.javaguides.net/2022/01/spring-boot-    and-microservices-roadmap.html

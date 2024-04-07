@@ -1,0 +1,270 @@
+
+1. Lamda :
+       Lamda expression is also known as lamda function or annonmous function. it's a short block of code. 
+     It's one of the java 8  feature.
+   USAGE : provide the implementation of functional interface and using this we can save the line of the code. No need to provide            method name again to provide implementation.
+   * Compiler doesn't provide any .class file for lamda expression. Because, It will treat as a function.
+   * we can work with and without parameters
+   * The arrow operator separate the parameters from method body.
+  
+   Example : 
+             interface Drawable{  
+               public void myDraw();  
+           }  
+
+        public class LamdaExpression {
+	public static void main(String[] args) {
+		Drawable d = ()->{
+	System.out.println("Hello This is from Draw");
+		};
+		d.myDraw();
+	    }
+
+          }
+
+2. Method Reference : 
+     It's one of the feature of java 8.
+     Usage : used to refer methods of functional interface. It's a special type of lamda expression. 
+    why :
+         Each time , when we using lamda expression for just refering the methods, we can replace our lamda expression with                     method reference.
+  They are 3 types of method reference :
+   1. Refference to a Static method
+   2. Refference to an instance method
+   3. Reference to a constructor
+
+
+  1. Refference to a Static method :
+
+    Example : 
+               public interface Demo {
+               	void say();
+                   } 
+               
+    public class DemoAccess {
+	public static void saySomethinng()       { 
+      System.out.println("This is from static method");
+	}
+	
+	public static void main(String[] args) {
+		
+		Demo d = DemoAccess::saySomethinng;
+		d.say();
+	         }
+             }
+
+
+ Note :  we are refering the method data to the another method. which is present inside the interface
+
+  2. Refference to an instance method:
+       instance methods means , non static methods.
+
+         Example : 
+               public interface Demo {
+               	void say();
+                   } 
+               
+    public class DemoAccess {
+	public void saySomethinng()       { 
+    System.out.println("This is from Instance method");
+	}
+	
+	public static void main(String[] args) {
+		
+	     DemoAccess demoAccess = new DemoAccess();
+		Demo d = demoAccess::saySomethinng;
+		d.say();
+	         }
+             }
+
+ 3. Reference to a constructor :
+      we can refer a constructor by using the new keyword. Here, we are referring constructor with the help of functional interface.
+
+   Example : 
+          Interface Messageable {
+	Message getMessage(String msg);
+               }
+
+            
+           public class Message {
+	          public Message(String message) {
+		System.out.println(message);
+	         }
+             }
+
+        public class ConstructorCallingReference {
+	public static void main(String[] args) {
+         Messageable m = Message::new;
+       m.getMessage("Welcome to construtor reference");
+	}
+    }
+
+
+
+3. Default Method :
+        we can create a method with help of 'default' keyword. default methods can inherite automatically when the class implement         that particular interface
+
+   Example : 
+             public interface Vehicle {
+                     void start();
+
+            default void honk() {
+                System.out.println("Honking the horn");
+              }
+           }
+
+
+       public class AccesCar implements Vehicle {
+
+	@Override
+	public void start() {
+		System.out.println("Hello car Starts");
+	}
+
+	public static void main(String[] args) {
+		AccesCar accesCar = new AccesCar();
+		accesCar.start();
+		accesCar.honk(); // directly access
+	}
+    }
+  
+    In this example, the Vehicle interface declares a default method honk(). The implementing class Car overrides the required     method start()     but inherits the default implementation of honk(). The Car class can choose to override honk() if a different behavior is desired.
+
+    Note : Static methods present in interface
+
+ 5. Optional Class : 
+    It's one of the java 8 feature. To handle sutiation  where variable / object having value (or) not.
+
+   Usage : to avoid the Null pointer Exception.
+
+  Here, 3 static methods present :
+    1. empty() : It will create empty object
+    2. of() : If the property have the value only, we should prefer to        use. Otherwise it will give NullPointerException.
+    3. ofNullable() : It's a combination of empty() & of(). it works like ternary operator. If value is present , it will return        values otherwise it will return empty.Instead of NullPointerException.
+    
+   * If we want to get a value from Optional class. we should use 'get()' method.
+
+   * Before we using this 'get()'. we need to check that particular object having the value or not.
+     for that, 'isPresent()' should use, Otherwise we can get "NoSuchElementPresentException".
+
+  Note :  Inside Optional Class some methods present.
+   
+  6. Stream API :
+           It's one of the java 8 feature and used to stream the data and perform the operations.
+
+     [Predefined-Functional- Interface] :  etc
+         
+     1. Consumer : Only 1 abstract method present, the name of the method is "accept()". the return void. doesn't return anything.
+
+     2. Supplier : only 1 abstract method present, the name of the method is "get()". the return type is the type of  generic. We can          get the data without passing any input.
+     
+     3. Predicate : only 1 abstract method present. the name of the method is "test()". the return type is boolean. to check condition         we can use.
+ 
+     [ METHODS ] :
+    
+     1. allMatch() : The return type is boolean. if all values are satisfies with codition, the out put will return 'true'.
+     
+  Example : 
+
+    List<Integer> list = Arrays.asList(2, 4, 6, 8, 10);
+       boolean allMatch = list.stream()
+                  .allMatch(num -> num % 2 == 0);           
+      System.out.println("allMatch() : " + allMatch);
+
+
+     2. anyMatch(): The return type is boolean. if any value is satisfied with condition. it will return true otherwise It will return        false.
+
+    Example : 
+
+     List<Integer> anyMatch = Arrays.asList(2, 4, 6, 8, 10);
+     boolean anyMatch2 = anyMatch.stream()
+          .anyMatch(num -> num % 2 != 0);
+     System.out.println("anyMatch() : " + anyMatch2);
+
+    3. count() : The return type is Long. we can use  after any 1 operation perform.
+
+    4. Distinict() : The return type is Long. It will return unique values.
+
+    5. findFirst() & findAny() : The return type is 'Optional'.
+  
+    6. filter() : The type of generic data.
+
+    7. map() : The return data is same type of data generics. It's used to Data transformation.
+     
+    8. mapToInt() : Convert a string data to integer.
+        
+      Example : 
+
+     List<String> asList = Arrays.asList("1", "2", "3","4", "5");
+      asList.stream().mapToInt(num ->(Integer.parseInt(num))).forEach(x -> System.out.println(x));
+        
+    9. mapToLong() : Converting Long Data type.
+  
+      Example : 
+       LongStream mapToLong = asList.stream().mapToLong(l -> (Long.parseLong(l)));
+        mapToLong.forEach(l -> System.out.println(l));
+
+    10. mapToDouble() : Converting Double Data type.
+
+    Examplel : 
+
+   DoubleStream mapToDouble = asList.stream().mapToDouble(d -> (Double.parseDouble(d)));
+     mapToDouble.forEach(d -> System.out.println(d));
+
+    11. flatMap() : return type Generic, a list inside another list to make a single list for the we can use flatMap().
+    Example : 
+     asList8.stream().flatMap(x -> x.stream()).collect(Collectors.toList());
+
+    12. flatMapToInt() : 
+          converting a list of list data into int type.
+  
+    Example  :
+    
+     fmap.stream().flatMapToInt(x -> x.stream().mapToInt(c -> (Integer.parseInt(c))))
+	.forEach(x -> System.out.println(x));
+ 
+     13. flatMapToLong() : Convereting flatMap to long.
+
+     Example : 
+
+     fmap.stream().flatMapToLong(n -> n.stream ().mapToLong(Long::parseLong))
+    .forEach(value -> System.out.println(value + " "));
+
+     14. flatMapToDouble() : Convereting flatMap to Double datatype.
+
+     Example : 
+    
+      fmap.stream().flatMapToDouble(x -> x.stream().mapToDouble(Double::parseDouble))
+	.forEach(x -> System.out.println(x + " "));
+  
+     15. nonMatch(): Opposite of anyMatch 
+
+
+
+
+   ----------------- Interface -----------------
+
+  If we want to access Interface variables and methods by class , we need to use implement keyword to get access from interface to class.
+ 
+ ABSRACT() RULES : 
+ 
+ * In interface we can declare only abstarct, implement static and default methods.
+ * We need to write the logic for abstract methods in child class. we can access that particular method using child class object       reference only . we can't access by interface.
+ 
+ STATIC() RULES :
+
+ * we can't access static methods through child class reference , Because static methods and variables are class level. If we    want    access, we should use static way only.
+
+ DEFAULT() RULES :
+ 
+ * as we discuss above 2 method, It's completely opposite, 1. no need to implement the logic
+   2. we can't access by static way
+
+  we should access by child class obj reference.
+
+
+  About Variables : 
+
+  * Inside interface initilization is must. 
+
+
+         

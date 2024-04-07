@@ -1,0 +1,36 @@
+
+  What ?
+  ->  Java is a high-level Object Oriented Programing Language (OOP’s) developed by Sun Microsystems.
+  ->  The Key feature of java is Write Once Run Anywhere (WORA).
+  ->  we can combine java with other technologies like spring and J2EE etc.
+  ->  we can build robust,protable and distributed full fleged application
+ 
+  Why ?
+  ->  Platform Independent
+  -> Secure
+  -> Enterprise-Ready
+  -> Portability
+
+
+ * Features Of Java
+ * JDK, JRE, JVM
+
+ * what is platform, OS and Program
+
+ 1. what is class, How to declare and Rules of Class ?
+ 2. what is Object, How to create and Internal Storage ?
+ 3. Association (Has - A Relationship)
+ 4. Internal Process Of Java Code Execution 
+ 5. Datatypes(Covering with variable concept)
+ 6. what is method, How to declare and rules ?
+ 7. Variables
+ 8. this keyword
+ 9. Constructors
+10. Categories Of Methods
+11. Types Of Overloading
+12. Inheritence
+13. 
+
+
+    
+    

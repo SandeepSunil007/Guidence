@@ -1,0 +1,31 @@
+ 
+SOA :
+
+Service-oriented architecture was largely created as a response to traditional, monolithic approaches to building applications. SOA breaks up the components required for applications into separate service modules that communicate with one another to meet specific business objectives. Each module is considerably smaller than a monolithic application, and can be deployed to serve different purposes in an enterprise. Additionally, SOA is delivered via the cloud and can include services for infrastructure, platforms, and applications.
+
+SOA’s two main roles are as a service provider and a service consumer. Its service provider layer includes the different services involved in SOA, while the consumer layer operates as the user interface. 
+
+SOA delivers four different types of services:
+
+Functional services are used for business operations
+Enterprise services implement the functionality
+Application services are specific for developing and deploying apps 
+Infrastructure services are for non-functional processes such as security and authentication
+Traditionally, SOA involves an enterprise service bus (ESB) as a means of coordinating and controlling these services. 
+
+
+
+https://www.talend.com/resources/microservices-vs-soa/
+
+
+https://www.educative.io/blog/microservices-interview-questions-and-answers?eid=5082902844932096&utm_campaign=brand_educative&utm_source=google&utm_medium=ppc&utm_content=performance_max_india&eid=5082902844932096&utm_term=&utm_campaign=%5BNew%5D+Performance+Max&utm_source=adwords&utm_medium=ppc&hsa_acc=5451446008&hsa_cam=18931439518&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=CjwKCAjw-KipBhBtEiwAWjgwrGARdNMkmITqPxmwoB6TCcq_ZT7jlQq3Bib3RTB_WUidVNkdmbYGlRoC-q4QAvD_BwE
+
+
+
+
+
+Java Concurrency is the capability of the Java platform to run multiple operations simultaneously. The operations could be multiple Java programs or parts of a single Java program.
+
+
+
+  

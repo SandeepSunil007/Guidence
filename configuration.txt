@@ -1,0 +1,195 @@
+  1. what is Eureka service registry 
+ 
+    :- Eureka is an open-source service registry developed by Netflix for use        with their cloud-based applications. It is a component of Netflix's        larger service-oriented architecture (SOA) platform, which is built on        top of Amazon Web Services (AWS).
+      * Eureka is a service discovery tool that allows microservices to find        and communicate with each other in a distributed environment
+      *  Eureka service registry simplifies the process of building and          maintaining distributed systems by providing a central location for          service registration and discovery.
+      * Eureka operates using a "client-server architecture", where each             microservice acts as a client that registers with the Eureka server
+
+  2.  How to configure This ?
+
+    :- 1.create a separate maven project and add "Eureka server" dependency
+       2. add "@EnableEurekaServer" annotation in your main class
+       3. add " eureka:
+                  client:
+                    register-with-eureka: false
+                    fetch-registry: false "
+          to tell Eureka this  service not a client
+            add "server:
+                   port: 8761" (default port) - optional to add
+
+ 3. How to register our micro services inside the Eureka service ?
+
+    :- 1. for microservice application we need to add one dependency
+          "Eureka Discovery Client"
+       2. add "@EnableEurekaClient" annotation in your main class
+       3. we need to do some configuratin in yml file to tell this service is          my client . for that,
+                    spring:
+                      application:
+                        name: ORDER-SERVICE (name anything)
+                    eureka:
+                      client:
+                         register-with-eureka: true
+                         fetch-registry: true
+                         service-url:
+                           defaultZone: http://localhost:8761/eureka/
+                    instance:
+                      hostname: localhost
+
+ 4. How to configure API Gateway ?
+    
+   :- 1. Add three dependencies 
+             a). "Gateway"
+             b). "Actuator"
+             c). "Eureka Discovery Client" 
+      2. add "@EnableEurekaClient" annotation in your main class 
+      3.  we need to do some configuratin in yml file to tell this service is           my client . for that,
+                    spring:
+                      application:
+                        name: API-GATEWAY (name anything)
+                    eureka:
+                      client:
+                         register-with-eureka: true
+                         fetch-registry: true
+                         service-url:
+                           defaultZone: http://localhost:8761/eureka/
+                    instance:
+                      hostname: localhost
+      4. To make a connection user request to servcie, in between Gateway
+         configuration :
+                       cloud:
+                         gateway:
+                           routes: // till common approch
+                           - id: ADMIN-SERVICE  (name of app in service yml)
+                           uri: lb://ADMIN-SERVICE
+                           predicates:
+                             - Path=/api/batch/** (basic path of approching url)
+   
+ 5. How to call one response from another service request ?
+
+    :- 1. add a dependence "Openfiegn" --> this is should from request service
+       2. add "@EnableFeignClients" in main class
+       3. create a separate interface for feignClient. On top of the interface           add " @FeignClient(name = "EMPLOYEE-SERVICE") " - name is based on           microservice client.
+       4. Example :
+        @GetMapping("/api/employee/getRequiredEmployee") 
+          --> :- (mapping & url dependent on service class
+	public ResponseEntity<BatchBodyResponse> getEmployeeFetchData();
+          --> :- ( getEmployeeFetchData() -- method dependent on which method                    should call from response service)
+
+   
+
+        *************************** Hystricks *********************************
+
+Hystricks is one of the component of micro-service, to stop the cascade failures
+
+assume :
+ client send a request to one of the micro service, unfortunatly that service down because of some reasons. at that point of this user can't get any (valid response) / response from API Gateway. To avoid this type of problems for up-coming client requests, we need to use Hystricks to give fallback message to API gateway from there user get a proper response.
+  To visualize those messages, we add Hystricks Dashboard 
+
+  1. add the Hystricks dependency in API Gateway
+                 <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+                 </dependency>
+  2. For each and every micro-service , we need to write one requestmapping end      point
+    
+ EX : (This code should be  in controller class )
+       @requestMapping("/orderFallBack")
+       public Mono<String> orderServiceFallBack(){
+                  return Mono.just("provide what msg you want to show to user");
+                 }
+  3. configure application.yml file, under micro-service configaration
+            filters:
+              - name: CircuteBreaker
+                args:
+                  name: order-service(any name)
+                  fallbackuri: forward: /orderFallBack(URL of rest end point)
+
+  configuration:
+       
+ 1. To evaluate the fallBack stream 
+      management:
+        endpoints:
+          web:
+            exposure:
+              include: hystrix.stream
+
+  2. To check the time out
+
+     hystrix:
+       command:
+         fallbackcmd:
+           execution:
+             isolation:
+               thread:
+                 timeoutInMilliseconds: 5000 --> (5s)
+
+ *** create a project "HystrickDashBoard" to visualize the failure team
+    1. add hystrix Dashboard dependency
+    2. add @EnableHystrixDashboardin main class and for identify provide port        number
+    3. add @EnableHystrix in your API Gateway project
+
+ To see Hystrix stream : localhost:ApiGatewayPortNumber/actuator/hystrix.stream
+
+ To see Hystrix DashBoard : copy the stream and search localhost:portNumber          late paste the copy stream in hystrix Dashboard
+
+
+ ****************** Spring Cloud Config Server With Git ******************
+  
+ storing and serving distributed configuration across multiple applications.
+ --> In each and every micro-service configuration some hardcoded configuration        common to all service. Instead of writing in all service , you can keep it       in one centralized place all common code for that "Spring Cloud Config        Server With Git" is needed
+
+   To Achieve : 1. create one git repository, we can write all common code                     inside that one.
+                2. create one spring boot application with name "ConfigServer".
+           config server act as a central place to give required configuration
+   1. add "config server, eureka client" dependencies
+   2. add @EnableConfigServer and @EnableEurekaClient in main class
+    
+ Application.yml :   spring:
+                      application:
+                        name: CONFIG-SERVER
+                   (To tell / register inside Eureka server with name)
+       To communicate with Git Repository :
+                      cloud:
+                        config:
+                          server:
+                            git:
+                             uri: (provide git link)
+
+      :: this common code is maditory to write in this service
+       
+                    eureka:
+                      client:
+                         register-with-eureka: true
+                         fetch-registry: true
+                         service-url:
+                           defaultZone: http://localhost:8761/eureka/
+                    instance:
+                      hostname: localhost 
+
+  :: this application communicate with git, to communicate other services with      service config. we need configuration to make other services are config      clients
+    ---> add                                 <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-           cloud-starter-config -->
+      <dependency>
+          <groupId>org.springframework.cloud</groupId>
+          <artifactId>spring-cloud-starter-config</artifactId>
+      </dependency>
+
+  --> remove common configuration from other config clients
+ 
+ :: add : create a bootstrap.yml (this file execute before tha app.yml file)
+           spring:  
+             cloud:
+               config:
+                 uri:
+                   - http://localhost:(port number of config project)
+
+ 
+ :: one hard coded String URL is pending.....
+    centralized configuration is done
+
+
+
+ ********** How to perform cerntralized logging by ELK Stack *************
+
+Elasticsearch - Store the data
+Logstash      - Process the data
+kibana        - View the data

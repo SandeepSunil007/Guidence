@@ -1,0 +1,157 @@
+
+
+ 1. Immutable class in java ?
+  ==> Declare The class as final,Declare the fields as a final, don't provide setters for above fields, provide constructors and Ensure mutable objects are not directly exposed.
+
+ 2. SOLID principles : 
+    The SOLID principles are a set of five design principles for writing maintainable, scalable, and robust object-oriented software. These principles were introduced by Robert.
+
+ 1. S - Single Responsibility Principle (SRP)
+ 2. O - Open/Closed Principle (OCP)
+ 3. L - Liskov Substitution Principle (LSP).
+ 4. I - Interface Segregation Principle (ISP).
+ 5. D - Dependency Inversion Principle (DIP).
+
+ 3. what are all design patterns you have worked as     a java backend     developer with spring boot.
+ 4. what is the volatile keyword in java.
+
+ 5. What is executor framework ?
+  ==> The Executor framework is a powerful and flexible Java framework introduced in Java 5 (Java SE 5) to manage the execution of concurrent tasks in a more organized and efficient way. It simplifies the process of managing threads, thread pooling, and executing asynchronous tasks in Java applications.
+
+ 6. Where do you used Multithreading concept in
+     your project.
+ 7. what is connection pooling.
+
+
+ Cluster - Index : 
+
+  Number of rows read :  1
+  Actual Number of Rows for All Exections : 1
+
+ Non - Cluster Index
+
+  Number of rows read :  All the rows availble in it;
+  Actual Number of Rows for All Exections : 1
+
+ * we read execution plans from Right to Left and Top to Bottom.
+ * key & values and row locators, employee name sorted and stores the data in alphabetic order.
+ * in non-cluster index work can do togather, with non-cluster column name and cluster name with primary key.
+ * we can reduce the total subtree cost using index.
+
+
+ Tree Structure :
+       Root Node -- intermediate level -- Leaf Nodes
+   LN - Row Locators
+
+
+ Multiple DataBases :  should configure 2 different      DataBases, should do 2 different entities    packages and repositories.
+  
+ * we can make class as @Configuration, @EnableTransactionManagement and @EnablejpaRepositories(we need to provide base package)
+ * we need to create DataSource and inject into EntityManager and EM injected to TransactionManagement
+
+
+
+ 8. What is Actuator ?
+    ==> It's a sub-project of spring boot framework.
+     it will include no.of additional features that helps to monitor and manage the SBA. It contains the actuator endpoints (the place where the resources live). We can use HTTP and JMX endpoints to manage and monitor the Spring Boot application. If we want to get production-ready features in an application, we should use the Spring Boot actuator.
+
+ 9. Spring Bean Life Cycle ?
+    we can implement 3 ways to create a bean life cycle.
+   1. By XML : 
+
+   a) we need to create a plain java class and create a methods like init() and destroy() with some sysout message.
+   b)  Now, we need to configure the spring XML file spring.xml and need to register the init() and destroy() methods in it.
+   c). Finally, we need to create a driver class to run this bean.
+   
+   2. By Programmatic Approach
+   3. 3. Using Annotation
+
+
+ 10. Diff b/w get() and load() in Hibernate ?
+
+   Both are used to fetch the data from Database for the given identifier.
+  get() : It object not found for the given identifier then it will return null object 
+ load() : It will throw object not found exception 
+
+ get()  : Eager Loading : It returns fully initialized object so this method eager load the object  
+ load() : lazy loading : It always returns proxy object so this method is lazy load the object 
+
+ get() : performance littile slow compare to load().
+
+ get() : If you are not sure that object exist then use get() method.
+
+ load() : If you are sure that object exist then use load() method .
+
+
+  11. what are the 12 factors of microservices?
+     1. Code Base : 
+          single source code repository and deployed various environmentals.
+     2. Dependencies : Explicitly declare and isolate dependencies.
+     3. Config : store config environment
+     4. Backing Services :  Data Bases
+     5. Build, Release, Run : strictly separate build and run stages.
+
+     6. Processes : Execute the app as one or more Stateless processes.
+     7. Port-Binding
+     8. Concurrency: Scale-out by the Process Model
+     9. Logs:
+     10. Admin Process.
+     11. Disposability: Maximize Robustness with Fast Startup and Graceful Shutdown.
+
+     12. Dev/Prod Parity: Keep Development, Staging, and Production as Similar as Possible.
+
+
+  12. Intermediate stream : Applied on Stream and return the new stream value. Its not a final result. it is used to transforming,       filtering or sorting the data with in stream.
+   Ex : filter(predicate)
+        map(function)
+        sorted(comparator)
+        distinct()
+        limit(long), skip(long)
+
+   Ternminal operations : forEach(consumer),
+             collect(collector), count(), min(), anyMatch() etc..
+
+ 13. Volatile keyword ?
+    ==> In Java, the volatile keyword is used as a modifier for variables to indicate that their values may be modified by multiple         threads concurrently.
+      The main use of the volatile keyword is to ensure that changes made to the variable in one thread are immediately visible to        other threads.
+
+
+  14. First and Second Cache machanism ?
+      ==> The 1st level cache is also known as the "session-level cache." It is a default and mandatory cache that exists for every         Hibernate Session object. 
+
+  15. what is Kafka ?
+
+ ==> Kafka is an open-source distributed event streaming platform developed by Apache Software Foundation. It is designed to handle      high - throughput, real-time data streaming and      processing at scale. 
+
+  16. Working on seurity frameworks.
+    ==>  CSRF Protection: Spring Security includes          built-in Cross-Site Request Forgery (CSRF).
+    ==> authentication & Authorization
+
+ 17. What is new in java 17
+ 18. Write a program to find frequency of the characters. 
+   
+ 19. First Level(session-level cache) & Second Level(application-level cache)
+
+   Scope : The 1st level cache is associated with a single  Hibernate Session object. It means that the cache is  specific to a particular session and is not shared                among different sessions.
+
+   Scope: The 2nd level cache is shared across multiple Hibernate    sessions within the same application. 
+
+    Lifespan: The cache exists only during the lifespan of the session. When the session is closed, the 1st level cache is also cleared, and the cached objects are no longer available.
+
+   Lifespan: The 2nd level cache exists as long as the application is running. It is not tied to a specific session's lifespan and        remains available across multiple sessions.
+
+    Level of Granularity: The 1st level cache operates at the entity level. When you load an entity (using Session.get(), Session.load(), or query results), Hibernate stores the entity object in the 1st level cache.
+
+  Level of Granularity: The 2nd level cache operates at a coarser level than the 1st level cache. It can cache entire entities, query results, and collections, making it more efficient for caching read-only or infrequently changing data.
+
+
+
+  Synchronization  :  Hibernat automatically update the 1nd level cache.
+  Synchronization  :Hibernate does not automatically update the 2nd level cache 
+
+
+
+ * How to restrict the no.of connections ? 
+     using HikariCP we can restrict.
+
+     

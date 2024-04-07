@@ -1,0 +1,353 @@
+
+ why need react virtual DOM?
+ 
+if we change any changes in js, the whole tree structure will change.
+
+
+ when we tried to change the VD, after change the  data, it will compare with RD, and add the new  features inside the RD.
+
+ :  Diffing Algorithm : Some one taking decision for      Virtual DOm
+
+How many ways to use BootSTrap ? 
+ 1. By using CDN link
+ 2. By Downloding the Library
+
+ create application :
+  create a folder in pc location : open cmd
+
+  npx create-react-app my-Application
+
+
+cntr + j == terminal
+
+ to run ==> npm start
+
+  Folder Discussion:
+
+ Node_modules : conatin the all annotations,     dependencies. whatever using in project all        dependecy file available. no need to do any    changes.
+
+ public -> favicon : represent the current module              symbol.
+
+ manifesticon : not usefull for us
+
+   robost.txt : 
+    serach engine Optimization
+ CDN : Content Delivery Network
+
+  Readme.md: 
+
+ what is StrictMode?
+
+ types of component ?
+
+version < 16.8
+
+  class component          Function component
+ 
+  stateful - having data
+ 1. stateful component     1. stateless componet
+ 2. Dynamic Activities     2. static activities
+ 3. LifeCycle Methods      3. no life cycle methods
+
+
+ functional commponent :
+ the function name starts with capital letter it will consider as a functional component.
+
+
+
+  index is the main component => parent
+    -> redered app componenet => child
+ consider now onwords app.js is the parent component
+
+
+
+ babel ==> JSX to JS code
+  it will execute in browser
+
+ O(N) --> number os nodes and number of comparision
+
+ SESSION - II
+
+React features :
+ 1. SPA(Single Page Application)
+ 2. VDOM
+ 3. Reusable Component
+ 4. 
+
+
+
+* Browser can't understand JSX, for that babel we    need ,  babel is a  transCompiler from JSX to    Browser
+
+  How to create components ?
+
+
+
+*  Props - Properties
+
+  Its an Object , why giving the props always   key:value pair. to send one data to another data component. Props are ReadOnly , immutable and   using props we can make reusable components.
+
+
+ Destructuring props : 
+          let {movie,rating} = this.props
+
+
+  * Functional Component :
+      
+          
+
+
+  rce ==> dynamically create component
+
+ * what is Syntheticbaseevent ?
+ 
+   --> 
+
+ Events :
+  --> inside class componet, function keyword is not         required
+  --> we should write function outside the render()       only
+
+
+ RelationShip : ( P arent -- Child )
+ 
+   use of props - send data to other componets
+
+  -> child cannot send componet to parent
+
+
+ SESSION - III
+
+ 1. what is PWA(Progressive Web Application) ?
+ 2. Whar is recounsalation ?
+
+ State :
+
+  * For each and every component having own state.
+    we can share the state data to another state     data using props.
+  * mutable Object
+  * used to store the data within the component  
+  * state name should be 'state' word only, it's     fixed.
+
+  ** for variables no need to use 'this' keyword in class component. only for props, state and functions.
+
+  ** props can send data only in parent to      child.
+
+ asynchronise nature : setState
+
+
+ rules to send the data child to parent :
+
+ 1. create a function in parent component
+ 2. send that function to child as props
+ 3. call the functionn in child component and pass     data as argument.
+
+
+ * state is used to store the data in fc.
+
+
+    ** Hooks **
+
+  const[age,setage] = useState(18);
+
+   age - state
+   setage - function
+   useState - hook
+   18 - Initial Value
+ 
+         SESSION
+  * Creating components : 
+   rce - class component
+   rfce - functional component
+
+
+
+  <> ---> Fragment . To avoid the create new nodes in DOM.
+
+   
+  SESSION - IV (26/06/23)
+
+ React routes dom its a third party library 
+ React Version - 18
+ React routes dom - 6
+
+  install =>  npm i react-router-dom
+
+ <a> - default behaviour is refresh the page.
+
+ instead of <a> , put <Link> dom
+
+ Props Drilling : 
+ while sending data parent to nestead child  component by using props thats called props      Drilling.
+
+ avoid this problem : ContextAPI and Redux
+
+ * If key and value having same name, no need to    write value according to ES6.
+
+ * Developer can meet directly with RealDOM with    the help of 'Ref'
+
+ * what is the controll & un-controller    component    
+
+  
+     SESSION - V
+
+
+ 1. what is Redux ?
+ 2. can we update state in render() ?
+ --> imposible, it will go to infinite loops
+ 
+
+ 
+ *  Error Handiling life cycle
+
+  
+
+
+   Code Splitting :
+  code spliting is the feature of webPack     bundel. it will make small small   chunks  (parts)
+ 
+   Lazy Loading : Will decide the which component should load the first.
+
+
+  SESSION -VI
+
+ useEffect : It's a hook, by deafault behaviour  is execute before condion execution.
+
+ to use axios, we need to execute a command 
+  'npx i axios' 
+
+
+
+  SESSION - VII
+
+ using purecomponet we can avoid to execute the render the same name again and again. this pure-component will check internally , from parent props & state any data chnaging or same data getting.
+
+ purecomponet : performance opptimization
+
+ Task : Redux ToDo application
+
+ Component to store : useDispatch
+ store to Component :  useSelector
+ 
+ reducer to combine more then one, we should use   --> rootreducer.
+ for combining : CombineReducer
+
+ Redux : its a third party js library. to store the state data in global level.
+
+ instalation :  redux and react-redux
+
+
+  what is ReducToolKit ?
+
+
+
+
+
+
+
+
+
+
+
+const ComponentB = () => {
+  const dispatch = useDispatch();
+
+  const sendDataToStore = (data) => {
+    dispatch(setData(data)); // Dispatch the action with the data
+  };
+
+  return (
+    <div>
+      <h2>Component B</h2>
+      <button onClick={() => sendDataToStore('Data from Component B')}>
+        Send Data to Redux
+      </button>
+    </div>
+  );
+};
+
+export default ComponentB;
+In this example, both ComponentA and ComponentB are separate components that use the useDispatch hook to dispatch the setData action to send data to the Redux store.
+
+You can use these components in a parent component or in your main app component like this:
+
+jsx
+Copy code
+import React from 'react';
+import ComponentA from './ComponentA';
+import ComponentB from './ComponentB';
+
+const App = () => {
+  return (
+    <div>
+      <h1>App</h1>
+      <ComponentA />
+      <ComponentB />
+    </div>
+  );
+};
+
+export default App;
+Now, clicking the "Send Data to Redux" button in either ComponentA or ComponentB will dispatch the setData action with the corresponding data to the Redux store.
+
+
+
+  SESSION - VII (30 / 06/ 2023)
+
+ what is Debuncing & throatling ? 
+
+ Debuncing :
+ flipkart search bar searching each and letter one api, to avoid the that, we need to set some milli-seconds of time to take untill user sent / stop texting and sent all data into 1 api.
+
+ throatling : 
+ To restict some fnctionality, when overload occure to the sysstem / application. to save system functionality we can use.
+
+
+ Benfits of Axios :
+ 1. In-build HTTP methods(Get, Post, Put & Delete)
+ 2. no Method Parse(no need to pass for    response.json()).
+ 3. Better Error Handiling
+ 4. axios features available : Instance, InterSeptors
+ 
+
+
+
+   npm i -f (or) force
+
+ ==================================
+
+ need to install the 2 commands for develop the app.
+ 
+ 1. npm install react-bootstrap bootstrap
+ 2. npm i axios
+
+css : import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+  Task : 
+    1. CRUD with static Data.
+    2. Redux
+    3. flow of Redux
+
+  SESSION :
+ 
+  Reduc follows syncr nature. But, api follow Async natue. in order to make connection in between. we should use 'ReduxMiddleWare" . there are 2 types availabel in market.
+
+ to do redux thunk --- npm i redux thunk
+
+ 1. Thunk(easy to learn)
+ 2. saga(with help of function Generatos need)
+
+
+ * To send the token every time to backend, i used axios interceptors, before sendinng the 'request' & after getting response.
+
+ TestCases : npm run test
+ testsuites : no.of file in our application 
+ test : no.of test present in testfile(file inside         no.of testcases)
+
+
+
+  hosting : npm run build
+
+
+  SESSION - (02-Jul-2023)
+
+ * create own hooks ?

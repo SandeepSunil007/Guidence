@@ -1,0 +1,45 @@
+  Spring Basic Security
+
+Level 1:
+
+ 1. add spring security dependency and search on      google, if we not configure the username and        password , by default spring will provide            password. username is 'user' and password           'spring will provide password'
+ 2. if you want to configure, we can
+     spring.security.user.name = sandeep
+     spring.security.user.password = pass
+
+Level 2:
+
+  we need to configure the user details in memomy database and use it. for that
+
+ 1. create config class and write authentication      and authorization, add @Configuration on class
+ 2. we need to create a bean for userDetailsService
+    this is for authentication
+ 3. for authorization 'SecurityFilterChain ' create     a bean for this and make it restrict urls
+ 4. if we need we can add PassswordEncoder also, to     store password as in encryption style
+ 5.  add @EnableWebSecurity for config class and           run and check
+ as per our expectation code working properly.
+  
+ -> we have roles, based on that how to restrict to     access the urls
+    ->  add on method @PreAuthorize("hasAuthority           ('ROLE_USER')") based on requirment
+    -> add @EnableMethodSecurity in config class
+
+Level 3: From DB 
+
+   1. create an entity with username and password
+   2. create a repository for that
+   3. In your config class remove the hard code        user details and return a new class
+   4. Implement that class with       'UserDetailsService', add @Component and       override the method
+   5. Inject the repository in class we need to            create a method in our repository to choose           one variable is our identifier and we can use         Optional class thats better
+   6. I am getting Optional, but i need to       configure as per my return type that is       UserDetails. for configure i need to create a       new class and Implement UserDetails.
+   7. based on my authentication i need to write          some logic
+   8. create a user entity and store the data into       db
+    --> run and check
+    we will get :
+      No AuthenticationProvider found for org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+
+   9. for AuthenticationProvider  we need to write       some code in config class. using @Bean
+   
+
+
+
+

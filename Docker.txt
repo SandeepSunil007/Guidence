@@ -1,0 +1,176 @@
+
+  What is Docker ?
+
+   Docker is a tool, designed to make easier to build,    deploy and run appications by using containers.
+
+ Why Docker ?
+
+  Before Docker :  whatever Developer wrote  the code some time in QA system same code will give the errors, may be possibilities are :
+ 1. Dependency Version mismatch from one Envornment to     another. Ex : Spring 4x to Spring 3x
+ 2. Library Corrupted.  Ex :  jar issue
+ 3. Software Upgrade.  Ex : version of java 8 to java 7 
+
+  To Overcome :
+
+   Whatever i used in my dev system configurations like    Dependencies, Libraries and software update all         these thing i can keep in one container.  
+     
+   * I will keep all required software in one container      and move all required invironmental.
+
+  
+  Docker Architecture : 
+
+               -------------------------------   
+                  Container  | | Container 
+               -------------    ---------------                
+               |     App1    | |  App2         |
+               | ----------- | |  -------------|
+               |    BIS/LIBS | |  BIS/LIBS     |
+               --------------------------------|
+               |        Docker Engine          |
+               |-------------------------------|
+               |    Host Operating System      | 
+               |-------------------------------|
+
+   Advantages : 
+  1. It will occupies the memory from Host Operating         system. client system memory can save.
+  2. Compare virtual machine memory occupies is less      only.
+
+
+
+  Docker WorkFlow :
+
+  1. I wrote the docker file.
+  2. With the help of docker command, I created a           docker image. 
+  3. Docker container is used to run our Docker image 
+     
+   Note :  2 & 3 present in Virtual machine Box
+
+  4.  Keep it inside the Docker Hub. It's kind of       Repository. we can pull the  docker image from       Docker Hub.
+  5.  No.of servers access the Docker image from Docker       Hub, such as Production server and Staging Server
+
+
+   Docker - Instalation on Windows : 
+  
+    OS - 64 bit
+    windows 7 or Higher version
+    enable Hyper -V
+
+
+
+   Execute With Spring Boot : 
+
+   * create a project and just write one string method      endpoint to get the return message. No need to      configure any my-sql configuration. 
+
+   1. Create a docker file in project.
+      RightClick on Project -> Run as -> Maven Install
+
+    Inside pom.xml : 
+
+       <finalName>my-docker-name</finalName>
+
+      The above line should be in pom.xml from last 3rd       line. means <Project> and <build> above line.
+     
+    Inside Docker File :
+ 
+      FROM openjdk:8
+      EXPOSE 8080
+      ADD target/my-docker-name.jar my-docker-name.jar
+      ENTRYPOINT ["java","-jar", "/my-docker-name.jar"]
+
+  Note :  'my-docker-name' based on pom.xml inside name
+
+   2. we should open the project location directory.
+      for that in powershall,
+      Ex:  Set-Location -Path "C:\Users\Admin\Desktop"
+
+   3. For changing the folder 'cd folderName'.
+   4. To build docker image command : 
+
+       docker build -t (jar file name).jar .
+  
+   5. after succefully build, write a command for       extract the data to access all other users.
+    
+     Ex:  docker run -p 1998:8080 (jar file name).jar
+       
+      -p : is a port
+      1998 : is the Docker Engine Port
+      8080 : our spring project port
+
+  ** : while accesing the third party users. should use       Owner system Ip address.
+    Ex: http://10.10.50.1/1998/ --> consistent code. 
+
+
+
+
+  ========== Session - II ============
+
+ How to Pull and Push Docker image to DockerHub  
+   using Docker commands ?
+  
+   -> we need to create an account in DockerHub
+
+   -> start the docker engine and open powerShell       and type a command "docker login"
+      -> provide your DokerHub username and password
+
+   -> provide a tag command:
+       command: docker tag (name of your jar file)
+          (provide any name)/(name of your jar file)        Ex: docker tag my-docker-name.jar             sandeep/my-docker-name.jar
+   -> For checking : docker image ls 
+               
+   *** To push a docker image in DockerHub
+    command :docker push  sandeep/my-docker-name.jar     
+   *** To Pull the docker Image
+   docker pull sandeepsunil007/my-docker-name.jar
+
+   *** After pulling the image, To use :
+ Command:docker run -p 1990:8080 sandeepsunil007/my-              docker-name.jar
+
+   we can access the enpoints using port 1990.
+
+
+
+   ========== Session - III ============
+  
+    Docker Jenkins Integration 
+
+   ========== Session - IV ============
+
+ How to Dockerizing spring boot application using  Google Jib Library.
+
+  1. Writing a Docker file
+  2. Generate the ArtifactId
+  3. Building the Docker image
+  4. Pushing the docker image into Docker Hub.
+ 
+  The above four steps process called Dockerization.
+
+Note :
+ If some one do this work , How it is for Developer?
+
+
+ Advantages Of Google JIB :
+ 
+ 1. No Docker Installation
+ 2. No Docker File Required
+ 3. No manual Build & push
+
+  Proccesing....
+
+ 
+  ========== Session - V ============
+
+ How to connect mysql with Docker ?
+
+   
+  After changing the location
+
+ Commands :
+     
+ 1. docker pull mysql:5.7
+ 2. docker network create spring-boot-mysql-net
+ 3. docker network ls
+ 4. docker run --name mysqldb --network spring-     boot-mysql-net -e MYSQL_ROOT_PASSWORD=1234 -e      MYSQL_DATABASE=mywondb -e MYSQL_USER=sandeep -e      MYSQL_PASSWORD=1234 -d mysql:5.7
+ 5. docker ps
+ 6. docker exec -it (starting 3 letters Id , after     executing the 4th command) 
+ 7. mysql -usandeep -p1234 (user : & pass: ) Depends     on 4th command.
+ 8. show databases: (we can find the created     database)

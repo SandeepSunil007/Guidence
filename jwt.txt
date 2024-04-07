@@ -1,0 +1,83 @@
+
+ user can get login with username and password   only, for those two fields we can create a class
+
+ 1. create a request class with username and  password fields
+ 2. create a string method in controller class and pass above class     as a requestBody
+ 3. add two dependencies before your creating the       token
+     
+         <dependency>
+          <groupId>io.jsonwebtoken</groupId>
+          <artifactId>jjwt-api</artifactId>
+          <version>0.11.5</version>
+         </dependency>
+
+          <dependency>
+            <groupId>io.jsonwebtoken</groupId> 
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+          </dependency>
+          
+          <dependency>
+           <groupId>io.jsonwebtoken</groupId>
+           <artifactId>jjwt-jackson</artifactId>
+           <version>0.11.5</version>
+          </dependency>
+
+ 4. search in google 'Encryption key generation'
+    and take any kind of security level key
+ 5. create a class to create token. add the secrate     key and annotate on class @Component.
+ 6. Inject this class inside the controller class       and access the method and get username
+ 7. provide url in config class
+     
+  NOTE: Until here JWT Token can create. but one big problem is available. if the user is not present into DB also, generating the              token. Should not be do like that. to restrict we need to write some extra code.
+
+
+  8. Annotate with @Autowired for AuthenticationManager(I). with the reference get the 'authenticate' method and write the logic
+
+  @PostMapping("/authenticate")
+	public String authenticateAndGetToken(@RequestBody AuthRequest request) {
+  // for working authentication from DB users. we need to create a bean explicitly in configuration file
+		Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+		if(authenticate.isAuthenticated()) {
+			return jwtService.generateToken(request.getUsername());
+		}else {
+			throw new UsernameNotFoundException("invalid user request !");
+		}
+
+  Note :  If we run now, we can get the error saying. There is no bean for AuthenticationManager. to get the bean we need to write the            code in configuration class.
+
+       @Bean
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+		return authenticationConfiguration.getAuthenticationManager();
+		
+	}
+
+  Note : Writing this code we solved for generating token to unwanted users.
+
+ 9. If we try to get the data based on URL's using generated token. It won't work, Because we didn't filter the JWT. For that we need     to create a class and 'extends' --- with --- 'OncePerRequestFilter' class and implement th override method.
+
+  -> should write the code inside the filter method.
+  -> should inject this class into configuration class.
+  -> should write some code.
+
+ 
+ 10. Code working properly and executing succesfully...!
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
